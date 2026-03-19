@@ -1,0 +1,92 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  v2012                                 |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    class       dictionary;
+    object      createPatchDict;
+}
+
+pointSync false;
+
+patches
+(
+    {
+        name inside;
+        patchInfo
+        {
+            type wall;
+        }
+        constructFrom patches;
+        patches
+        (
+            wall_inner-geom-1-solid1
+            wall_inner-geom-1-solid2
+            wall_inner-geom-1-solid3
+        );
+    }
+
+    {
+        name outside;
+        patchInfo
+        {
+            type wall;
+        }
+        constructFrom patches;
+        patches
+        (
+            wall_outer-geom-1-solid1
+            wall_outer-geom-1-solid2
+            wall_outer-geom-1-solid3
+        );
+    }
+
+    {
+        name fixed;
+        patchInfo
+        {
+            type wall;
+        }
+        constructFrom patches;
+        patches
+        (
+            top-geom-1-solid2
+            top-geom-1-solid3
+        );
+    }
+
+    {
+        name symmetry_1;
+        patchInfo
+        {
+            type symmetryPlane;
+        }
+        constructFrom patches;
+        patches
+        (
+            symmetry_1-geom-1-solid1
+            symmetry_1-geom-1-solid2
+        );
+    }
+
+    {
+        name symmetry_2;
+        patchInfo
+        {
+            type symmetryPlane;
+        }
+        constructFrom patches;
+        patches
+        (
+            symmetry_2-geom-1-solid1
+            symmetry_2-geom-1-solid3
+        );
+    }
+);
+// ************************************************************************* //
