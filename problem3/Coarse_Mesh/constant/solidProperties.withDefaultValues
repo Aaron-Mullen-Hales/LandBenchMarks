@@ -1,0 +1,54 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+| =========                 |                                                 |
+| \\      /  F ield         | OpenFOAM: The Open Source CFD Toolbox           |
+|  \\    /   O peration     | Version:  2312                                  |
+|   \\  /    A nd           | Website:  www.openfoam.com                      |
+|    \\/     M anipulation  |                                                 |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version     2.0;
+    format      ascii;
+    arch        "LSB;label=32;scalar=64";
+    class       dictionary;
+    location    "constant";
+    object      solidProperties.withDefaultValues;
+}
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
+
+solidModel      nonLinearGeometryTotalLagrangianTotalDisplacement;
+
+"linearGeometryTotalDisplacementCoeffs|nonLinearGeometryTotalLagrangianTotalDisplacementCoeffs"
+{
+    solutionAlgorithm PETScSNES;
+    optionsFile     petscOptions.split;
+    predictor       yes;
+    stabilisation
+    {
+        type            RhieChow;
+        scaleFactor     0.5;
+    }
+    solvePressure   true;
+    pressureSmoothingCoeff 1;
+    stabilisationType oosterlee;
+    omega           omega [ 0 0 0 0 0 0 0 ] 0.125;
+    omegaTau        omegaTau [ 0 0 0 0 0 0 0 ] 0;
+    mu              mu [ 1 -1 -2 0 0 0 0 ] 2.62507e+07;
+    lambda          lambda [ 1 -1 -2 0 0 0 0 ] 5.24856e+07;
+    pressureConfig  none;
+    dampingCoeff    dampingCoeff [ 0 0 -1 0 0 0 0 ] 0;
+    solutionTolerance 1e-06;
+    alternativeTolerance 1e-07;
+    materialTolerance 1e-05;
+    infoFrequency   100;
+    nCorrectors     10000;
+    minCorrectors   1;
+    writeResidualField false;
+    relaxationMethod fixed;
+    QuasiNewtonRestartFrequency 25;
+    restart         false;
+    residualFile    false;
+}
+
+
+// ************************************************************************* //

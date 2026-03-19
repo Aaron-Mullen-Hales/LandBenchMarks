@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# If you want to run the solver in parallel, pass the argument "parallel" to
+# this script, e.g. > ./Allrun parallel
+
+# Source tutorial run functions
+. $WM_PROJECT_DIR/bin/tools/RunFunctions
+
+# Create mesh in steps:
+#     1. Create slice of a circle
+#     2. Rotationally extrude the slice
+#     3. Remove empty patches
+
+gzip -d ventricle_ideal_fine.msh.gz
+runApplication fluent3DMeshToFoam ventricle_ideal_fine.msh
+gzip ventricle_ideal_fine.msh
+
+runApplication -s X mirrorMesh -dict system/mirrorMeshDict.X -overwrite
+runApplication -s Y mirrorMesh -dict system/mirrorMeshDict.Y -overwrite
+
+runApplication createPatch -overwrite
+rm -rf 0.*
+runApplication setFibreField
+
+#solids4Foam &> log.solids4Foam

@@ -1,0 +1,12 @@
+set terminal pdfcairo enhanced color
+set output "geom_midline_left_points.pdf"
+
+set xlabel "x (mm)"
+set ylabel "z (mm)"
+set key outside left center
+
+plot \
+    "deformedGeometricMidline.txt" u (($1 <= 0) ? 1e3*$1 : 1/0):(1e3*$3) w p pt 6 ps 1 lc "blue" t "{/Symbol \D}x = 1.26 mm", \
+    "hex.hypre.2/deformedGeometricMidline.txt" u (($1 <= 0) ? 1e3*$1 : 1/0):(1e3*$3) w p pt 6 ps 0.8 lc "cyan" t "{/Symbol \D}x = 0.63 mm", \
+    "hex.hypre.3/deformedGeometricMidline.txt" u (($1 <= 0) ? 1e3*$1 : 1/0):(1e3*$3) w p pt 6 ps 0.6 lc "green" t "{/Symbol \D}x = 0.32 mm", \
+    "hex.hypre.4/deformedGeometricMidline.txt" u (($1 <= 0) ? 1e3*$1 : 1/0):(1e3*$3) w p pt 6 ps 0.4 lc "red" t "{/Symbol \D}x = 0.16 mm"
